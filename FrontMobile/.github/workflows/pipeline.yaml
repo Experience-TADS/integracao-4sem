@@ -1,0 +1,33 @@
+name: CI/CD # só o nome pra identificar a ação 
+
+#roda sempre quando alguém faz push ou abre um PR na branch develop
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest #usa uma máquina virtual com Ubuntu para executar os passos
+    steps:
+      - name: Checkout code #baixa o código do repositório para dentro da máquina virtual
+        uses: actions/checkout@v3
+
+      - name: Setup Node #instala o Node.js versão 22 na máquina virtual
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies #instala todas as dependências do projeto
+        run: npm install
+
+      - name: Run tests #roda testes automatizados e encerra ao terminar
+        run: npm test -- --watchAll=false
+
+      - name: Check Expo config #verifica se a configuração do Expo está correta e sem problemas
+        run: npx expo-doctor
+
+#configurar o deploy automatizado na aws ec2
