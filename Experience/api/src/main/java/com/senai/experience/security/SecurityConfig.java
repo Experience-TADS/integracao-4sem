@@ -114,6 +114,7 @@ public class SecurityConfig {
                 // Rotas públicas
                 .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers("/error").permitAll()
+                .requestMatchers("/actuator/health").permitAll()
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/usuario/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/usuario").permitAll()
